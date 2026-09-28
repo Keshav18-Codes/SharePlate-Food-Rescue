@@ -6,8 +6,8 @@
 <title>{% block title %}SharePlate{% endblock %}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <script>
   // Apply saved/preferred theme before first paint to avoid a flash of the wrong theme.
   (function () {
@@ -20,27 +20,49 @@
 <body>
 
 <header class="topbar">
-  <a class="brand" href="{{ url_for('auth.home') }}">🍽️ SharePlate</a>
-  <nav class="topnav">
+<a class="brand" href="{{ url_for('auth.home') }}">
+  <span class="dial" aria-hidden="true"></span>SharePlate
+</a>
+
+  {% set ep = request.endpoint or '' %}
+  <nav class="topnav" aria-label="Main">
     {% if current_user %}
       {% if current_user.role == 'provider' %}
-        <a href="{{ url_for('provider.dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('provider.new_listing') }}">List Surplus Food</a>
+        <a href="{{ url_for('provider.dashboard') }}" class="{{ 'active' if ep == 'provider.dashboard' }}">Dashboard</a>
+        <a href="{{ url_for('provider.new_listing') }}" class="{{ 'active' if ep == 'provider.new_listing' }}">List surplus food</a>
       {% elif current_user.role == 'ngo' %}
-        <a href="{{ url_for('ngo.discover') }}">Discover Food</a>
-        <a href="{{ url_for('ngo.dashboard') }}">My Receipts</a>
+        <a href="{{ url_for('ngo.discover') }}" class="{{ 'active' if ep == 'ngo.discover' }}">Discover food</a>
+        <a href="{{ url_for('ngo.dashboard') }}" class="{{ 'active' if ep == 'ngo.dashboard' }}">My receipts</a>
       {% elif current_user.role == 'volunteer' %}
-        <a href="{{ url_for('volunteer.dashboard') }}">Delivery Requests</a>
+        <a href="{{ url_for('volunteer.dashboard') }}" class="{{ 'active' if ep == 'volunteer.dashboard' }}">Delivery requests</a>
       {% endif %}
-      <span class="nav-user">{{ current_user.name }} ({{ current_user.role }})</span>
-      <a href="{{ url_for('auth.logout') }}">Logout</a>
     {% else %}
-      <a href="{{ url_for('auth.login') }}">Login</a>
+      <a href="{{ url_for('auth.home') }}#how-it-works">How it works</a>
+      <a href="{{ url_for('auth.home') }}#why">Why SharePlate</a>
     {% endif %}
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme">🌙</button>
   </nav>
-</header>
 
+  <div class="nav-actions">
+    {% if current_user %}
+      <div class="acct">
+        <span class="av">{{ (current_user.name.split()|map('first')|join)[:2]|upper }}</span>
+        <span class="acct-name">{{ current_user.name }}</span>
+        <span class="role">{{ current_user.role|capitalize if current_user.role != 'ngo' else 'NGO' }}</span>
+      </div>
+      <a class="icon-btn" href="{{ url_for('auth.logout') }}" aria-label="Log out" title="Log out">
+        <i class="ti ti-logout" aria-hidden="true"></i>
+      </a>
+    {% else %}
+      <a class="nav-ghost" href="{{ url_for('auth.login') }}">Log in</a>
+      <a class="nav-cta" href="{{ url_for('auth.home') }}#get-started">
+        Get started <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+    <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch to dark theme">
+      <i class="ti ti-moon" aria-hidden="true"></i>
+    </button>
+  </div>
+</header>
 <main class="page">
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

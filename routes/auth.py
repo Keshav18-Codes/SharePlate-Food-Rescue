@@ -32,6 +32,46 @@ def _save_document(file_storage, subfolder):
     return os.path.join(subfolder, unique_name)
 
 
+
+def _home_stats():
+    """Impact numbers for the landing page. Never lets a DB hiccup break the page."""
+    stats = {"listings": 0, "claimed": 0, "deliveries": 0, "members": 0}
+    try:
+        row = query(
+            "SELECT "
+            "(SELECT COUNT(*) FROM listings) AS listings, "
+            "(SELECT COUNT(*) FROM claims) AS claimed, "
+            "(SELECT COUNT(*) FROM deliveries WHERE status = 'delivered') AS deliveries, "
+            "(SELECT COUNT(*) FROM users) AS members",
+            fetchone=True,
+        )
+        if row:
+            stats = {k: int(v) for k, v in row.items()}
+    except Exception:
+        pass
+    return stats
+
+
+def _home_board():
+    """Soonest-to-expire active listings for the landing page rescue board."""
+    try:
+        return query(
+            """
+            SELECT l.id, l.title, l.listing_type, l.sale_price,
+                   u.name AS provider_name,
+                   EXTRACT(EPOCH FROM (l.expiry_at - NOW()))::int AS secs_left
+            FROM listings l
+            JOIN users u ON u.id = l.provider_id
+            WHERE l.status = 'active' AND l.expiry_at > NOW()
+            ORDER BY l.expiry_at ASC
+            LIMIT 6
+            """,
+            fetchall=True,
+        ) or []
+    except Exception:
+        return []
+
+
 @auth_bp.route("/")
 def home():
     user = get_current_user()
@@ -42,7 +82,7 @@ def home():
             return redirect(url_for("ngo.discover"))
         if user["role"] == "volunteer":
             return redirect(url_for("volunteer.dashboard"))
-    return render_template("home.html")
+    return render_template("home.html", stats=_home_stats(), board=_home_board())
 
 
 @auth_bp.route("/register/<role>", methods=["GET", "POST"])

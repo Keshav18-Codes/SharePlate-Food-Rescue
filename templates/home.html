@@ -3,27 +3,169 @@
 {% block content %}
 
 <section class="hero">
+  <span class="hero-badge">🌱 Less waste, more meals</span>
   <h1>Rescue surplus food. Feed more people.</h1>
   <p>SharePlate connects shops with surplus food to NGOs who can put it to use, with volunteers handling delivery when needed.</p>
+  <div class="hero-actions">
+    <a class="btn" href="{{ url_for('auth.register', role='provider') }}">List surplus food</a>
+    <a class="btn-secondary btn-lg" href="{{ url_for('auth.register', role='ngo') }}">Find food for your NGO</a>
+  </div>
 </section>
 
-<section class="role-grid">
-  <div class="role-card">
-    <h2>🏪 Food Provider</h2>
-    <p>List your surplus food as a free donation or a discounted sale.</p>
-    <a class="btn" href="{{ url_for('auth.register', role='provider') }}">Register as Provider</a>
+{% if board %}
+<section class="board" aria-label="Live rescue board">
+  <div class="board-top"><h2>Food running out near you</h2></div>
+  {% for it in board %}
+  <div class="rb-row" data-secs="{{ it.secs_left }}">
+    <div class="rb-who">
+      <strong>{{ it.title }}</strong>
+      <span>{{ it.provider_name }} · {% if it.listing_type == 'donation' %}Free{% else %}₹{{ '%.0f'|format(it.sale_price or 0) }}{% endif %}</span>
+    </div>
+    <div class="rb-track"><div class="rb-bar"></div></div>
+    <a class="rb-claim" href="{{ url_for('auth.register', role='ngo') }}">Claim</a>
   </div>
+  {% endfor %}
+</section>
+<script src="{{ url_for('static', filename='js/board.js') }}"></script>
+{% endif %}
 
-  <div class="role-card">
-    <h2>🤝 NGO</h2>
-    <p>Discover nearby surplus food in real time and claim it in one click.</p>
-    <a class="btn" href="{{ url_for('auth.register', role='ngo') }}">Register as NGO</a>
+<section class="stats-strip" aria-label="Platform impact">
+  <div class="stat">
+    <span class="stat-num">{{ stats.listings }}</span>
+    <span class="stat-label">Listings posted</span>
   </div>
+  <div class="stat">
+    <span class="stat-num">{{ stats.claimed }}</span>
+    <span class="stat-label">Claims made</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">{{ stats.deliveries }}</span>
+    <span class="stat-label">Deliveries completed</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">{{ stats.members }}</span>
+    <span class="stat-label">Community members</span>
+  </div>
+</section>
 
-  <div class="role-card">
-    <h2>🚴 Volunteer</h2>
-    <p>Help deliver claimed food from providers to NGOs.</p>
-    <a class="btn" href="{{ url_for('auth.register', role='volunteer') }}">Register as Volunteer</a>
+<section class="home-section" id="get-started">
+  <h2 class="section-title">Choose how you want to help</h2>
+  <div class="role-grid">
+    <div class="role-card">
+      <h2>🏪 Food Provider</h2>
+      <p>List your surplus food as a free donation or a discounted sale.</p>
+      <a class="btn" href="{{ url_for('auth.register', role='provider') }}">Register as Provider</a>
+    </div>
+
+    <div class="role-card">
+      <h2>🤝 NGO</h2>
+      <p>Discover nearby surplus food in real time and claim it in one click.</p>
+      <a class="btn" href="{{ url_for('auth.register', role='ngo') }}">Register as NGO</a>
+    </div>
+
+    <div class="role-card">
+      <h2>🚴 Volunteer</h2>
+      <p>Help deliver claimed food from providers to NGOs.</p>
+      <a class="btn" href="{{ url_for('auth.register', role='volunteer') }}">Register as Volunteer</a>
+    </div>
+  </div>
+</section>
+
+<section class="home-section" id="how-it-works">
+  <h2 class="section-title">How it works</h2>
+  <p class="section-sub">From surplus to served in four simple steps.</p>
+  <ol class="steps">
+    <li class="step">
+      <span class="step-num">1</span>
+      <h3>Provider lists food</h3>
+      <p>Add the item, quantity, expiry time and a photo. Choose free donation or discounted sale.</p>
+    </li>
+    <li class="step">
+      <span class="step-num">2</span>
+      <h3>NGO discovers &amp; claims</h3>
+      <p>Verified NGOs browse nearby listings sorted by distance and claim what they need.</p>
+    </li>
+    <li class="step">
+      <span class="step-num">3</span>
+      <h3>Pickup or delivery</h3>
+      <p>The NGO collects it themselves, or requests a volunteer to bring it over.</p>
+    </li>
+    <li class="step">
+      <span class="step-num">4</span>
+      <h3>Receipt generated</h3>
+      <p>Both sides get an automatic receipt, so every rescue is recorded.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="home-section" id="why">
+  <h2 class="section-title">Why SharePlate</h2>
+  <div class="feature-grid">
+    <div class="feature">
+      <span class="feature-icon">📍</span>
+      <h3>Nearby, in real time</h3>
+      <p>Listings show distance from your location so food gets picked up while it's still fresh.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">✅</span>
+      <h3>Verified members</h3>
+      <p>Providers and NGOs upload documents at sign-up, so everyone knows who they're dealing with.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">💸</span>
+      <h3>Donate or sell</h3>
+      <p>Give food away free, or recover some cost with a discounted price for NGOs.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">🚴</span>
+      <h3>Volunteer delivery</h3>
+      <p>No vehicle? An NGO can request a volunteer to handle the last mile.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">🧾</span>
+      <h3>Automatic receipts</h3>
+      <p>Every claim generates a receipt, useful for records and reporting.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">🌙</span>
+      <h3>Light &amp; dark themes</h3>
+      <p>Comfortable to use at any hour, on any screen.</p>
+    </div>
+  </div>
+</section>
+
+<section class="home-section">
+  <h2 class="section-title">Frequently asked questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Who can list food?</summary>
+      <p>Restaurants, bakeries, grocers, caterers and any shop with safe, surplus food. Providers upload a food licence (such as FSSAI) when registering.</p>
+    </details>
+    <details>
+      <summary>Is it free to use?</summary>
+      <p>Registering and browsing are free. Providers decide whether each listing is a free donation or a discounted sale.</p>
+    </details>
+    <details>
+      <summary>How does an NGO get the food?</summary>
+      <p>Claim a listing, then choose self pickup or request a volunteer delivery. A receipt is created automatically.</p>
+    </details>
+    <details>
+      <summary>What happens if food isn't claimed in time?</summary>
+      <p>Listings are marked as expired once their expiry time passes, so NGOs only see food that's still good to collect.</p>
+    </details>
+    <details>
+      <summary>Can I volunteer without a vehicle?</summary>
+      <p>Volunteers pick delivery requests that suit them, including short local trips.</p>
+    </details>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Ready to make a difference?</h2>
+  <p>Join providers, NGOs and volunteers already rescuing food in your community.</p>
+  <div class="hero-actions">
+    <a class="btn btn-light" href="{{ url_for('auth.register', role='provider') }}">Get started</a>
+    <a class="btn-ghost" href="{{ url_for('auth.login') }}">Log in</a>
   </div>
 </section>
 
