@@ -699,3 +699,75 @@ h1 { font-weight: 800; letter-spacing: -0.035em; }
   .board { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .dial::after { animation: none; } .rb-bar { transition: none; } }
+
+/* ==========================================================================
+   Homepage redesign: roles, how it works, why SharePlate
+   Paste at the VERY END of static/css/style.css
+   ========================================================================== */
+.hx-section { margin-top: 110px; }
+.hx-eyebrow {
+  display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--mint); margin-bottom: 12px;
+}
+.hx-title {
+  font-family: var(--display); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  font-size: clamp(1.9rem, 4vw, 2.8rem); margin: 0 0 14px; color: var(--ink-900);
+}
+.hx-sub { color: var(--ink-500); font-size: 1.05rem; max-width: 52ch; margin: 0; }
+.hx-head { margin-bottom: 44px; }
+
+/* ---- 1. Roles ---- */
+.hx-roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.hx-role {
+  background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+  padding: 34px 30px 30px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+  text-align: left; transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.hx-role:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--ink-300); }
+.hx-chip {
+  width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center;
+  font-size: 28px; margin-bottom: 6px;
+}
+.hx-role:nth-child(1) .hx-chip { background: rgba(43,181,138,.16); color: var(--mint); }
+.hx-role:nth-child(2) .hx-chip { background: rgba(255,176,32,.20); color: var(--mango); }
+.hx-role:nth-child(3) .hx-chip { background: rgba(255,111,94,.16); color: var(--coral); }
+.hx-role h3 { font-family: var(--display); font-size: 1.4rem; letter-spacing: -0.02em; margin: 0; color: var(--ink-900); }
+.hx-role p { margin: 0 0 10px; color: var(--ink-500); line-height: 1.6; }
+.hx-link {
+  margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 700;
+  color: var(--ink-900); text-decoration: none; padding-bottom: 3px; border-bottom: 2px solid var(--ink-900);
+  transition: gap .2s;
+}
+.hx-role:hover .hx-link { gap: 14px; }
+
+/* ---- 2. How it works ---- */
+.hx-how { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
+.hx-how .hx-head { margin-bottom: 0; position: sticky; top: 96px; }
+.hx-steps { list-style: none; margin: 0; padding: 0; }
+.hx-steps li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 20px; padding: 28px 0;
+  border-top: 1.5px solid var(--border);
+}
+.hx-steps li:last-child { border-bottom: 1.5px solid var(--border); }
+.hx-num { font-family: var(--display); font-weight: 800; font-size: 2.2rem; line-height: 1; color: var(--mint); }
+.hx-steps h3 { margin: 0 0 6px; font-family: var(--display); font-size: 1.25rem; letter-spacing: -0.02em; color: var(--ink-900); }
+.hx-steps p { margin: 0; color: var(--ink-500); line-height: 1.6; max-width: 46ch; }
+
+/* ---- 3. Why SharePlate ---- */
+.hx-feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 52px 40px; }
+.hx-feat i {
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 22px; background: var(--surface-alt); color: var(--ink-900); margin-bottom: 16px;
+}
+.hx-feat h3 { margin: 0 0 8px; font-family: var(--display); font-size: 1.15rem; letter-spacing: -0.02em; color: var(--ink-900); }
+.hx-feat p { margin: 0; color: var(--ink-500); line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .hx-section { margin-top: 80px; }
+  .hx-roles, .hx-feats { grid-template-columns: 1fr; }
+  .hx-feats { gap: 36px; }
+  .hx-how { grid-template-columns: 1fr; gap: 32px; }
+  .hx-how .hx-head { position: static; }
+  .hx-steps li { grid-template-columns: 48px 1fr; padding: 22px 0; }
+}
+@media (prefers-reduced-motion: reduce) { .hx-role, .hx-link { transition: none; } }

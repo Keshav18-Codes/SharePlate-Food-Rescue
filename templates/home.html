@@ -48,87 +48,96 @@
   </div>
 </section>
 
-<section class="home-section" id="get-started">
-  <h2 class="section-title">Choose how you want to help</h2>
-  <div class="role-grid">
-    <div class="role-card">
-      <h2>🏪 Food Provider</h2>
+<section class="hx-section" id="get-started">
+  <div class="hx-head">
+    <span class="hx-eyebrow">Join the network</span>
+    <h2 class="hx-title">Choose how you want to help</h2>
+    <p class="hx-sub">Three ways to take part. Pick the one that fits you, and start in minutes.</p>
+  </div>
+  <div class="hx-roles">
+    <div class="hx-role">
+      <span class="hx-chip"><i class="ti ti-building-store" aria-hidden="true"></i></span>
+      <h3>Food provider</h3>
       <p>List your surplus food as a free donation or a discounted sale.</p>
-      <a class="btn" href="{{ url_for('auth.register', role='provider') }}">Register as Provider</a>
+      <a class="hx-link" href="{{ url_for('auth.register', role='provider') }}">Register as provider <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
     </div>
-
-    <div class="role-card">
-      <h2>🤝 NGO</h2>
+    <div class="hx-role">
+      <span class="hx-chip"><i class="ti ti-heart-handshake" aria-hidden="true"></i></span>
+      <h3>NGO</h3>
       <p>Discover nearby surplus food in real time and claim it in one click.</p>
-      <a class="btn" href="{{ url_for('auth.register', role='ngo') }}">Register as NGO</a>
+      <a class="hx-link" href="{{ url_for('auth.register', role='ngo') }}">Register as NGO <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
     </div>
-
-    <div class="role-card">
-      <h2>🚴 Volunteer</h2>
+    <div class="hx-role">
+      <span class="hx-chip"><i class="ti ti-bike" aria-hidden="true"></i></span>
+      <h3>Volunteer</h3>
       <p>Help deliver claimed food from providers to NGOs.</p>
-      <a class="btn" href="{{ url_for('auth.register', role='volunteer') }}">Register as Volunteer</a>
+      <a class="hx-link" href="{{ url_for('auth.register', role='volunteer') }}">Register as volunteer <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
     </div>
   </div>
 </section>
 
-<section class="home-section" id="how-it-works">
-  <h2 class="section-title">How it works</h2>
-  <p class="section-sub">From surplus to served in four simple steps.</p>
-  <ol class="steps">
-    <li class="step">
-      <span class="step-num">1</span>
-      <h3>Provider lists food</h3>
-      <p>Add the item, quantity, expiry time and a photo. Choose free donation or discounted sale.</p>
-    </li>
-    <li class="step">
-      <span class="step-num">2</span>
-      <h3>NGO discovers &amp; claims</h3>
-      <p>Verified NGOs browse nearby listings sorted by distance and claim what they need.</p>
-    </li>
-    <li class="step">
-      <span class="step-num">3</span>
-      <h3>Pickup or delivery</h3>
-      <p>The NGO collects it themselves, or requests a volunteer to bring it over.</p>
-    </li>
-    <li class="step">
-      <span class="step-num">4</span>
-      <h3>Receipt generated</h3>
-      <p>Both sides get an automatic receipt, so every rescue is recorded.</p>
-    </li>
-  </ol>
+<section class="hx-section" id="how-it-works">
+  <div class="hx-how">
+    <div class="hx-head">
+      <span class="hx-eyebrow">How it works</span>
+      <h2 class="hx-title">From surplus to served in four steps</h2>
+      <p class="hx-sub">No paperwork chase, no phone tag. Just food moving to people who need it.</p>
+    </div>
+    <ol class="hx-steps">
+      <li>
+        <span class="hx-num">01</span>
+        <div><h3>Provider lists food</h3><p>Add the item, quantity, expiry time and a photo. Choose free donation or discounted sale.</p></div>
+      </li>
+      <li>
+        <span class="hx-num">02</span>
+        <div><h3>NGO discovers and claims</h3><p>Verified NGOs browse nearby listings sorted by distance and claim what they need.</p></div>
+      </li>
+      <li>
+        <span class="hx-num">03</span>
+        <div><h3>Pickup or delivery</h3><p>The NGO collects it themselves, or requests a volunteer to bring it over.</p></div>
+      </li>
+      <li>
+        <span class="hx-num">04</span>
+        <div><h3>Receipt generated</h3><p>Both sides get an automatic receipt, so every rescue is recorded.</p></div>
+      </li>
+    </ol>
+  </div>
 </section>
 
-<section class="home-section" id="why">
-  <h2 class="section-title">Why SharePlate</h2>
-  <div class="feature-grid">
-    <div class="feature">
-      <span class="feature-icon">📍</span>
+<section class="hx-section" id="why">
+  <div class="hx-head">
+    <span class="hx-eyebrow">Why SharePlate</span>
+    <h2 class="hx-title">Built around fresh food and trust</h2>
+  </div>
+  <div class="hx-feats">
+    <div class="hx-feat">
+      <i class="ti ti-map-pin" aria-hidden="true"></i>
       <h3>Nearby, in real time</h3>
       <p>Listings show distance from your location so food gets picked up while it's still fresh.</p>
     </div>
-    <div class="feature">
-      <span class="feature-icon">✅</span>
+    <div class="hx-feat">
+      <i class="ti ti-rosette-discount-check" aria-hidden="true"></i>
       <h3>Verified members</h3>
       <p>Providers and NGOs upload documents at sign-up, so everyone knows who they're dealing with.</p>
     </div>
-    <div class="feature">
-      <span class="feature-icon">💸</span>
+    <div class="hx-feat">
+      <i class="ti ti-coin" aria-hidden="true"></i>
       <h3>Donate or sell</h3>
       <p>Give food away free, or recover some cost with a discounted price for NGOs.</p>
     </div>
-    <div class="feature">
-      <span class="feature-icon">🚴</span>
+    <div class="hx-feat">
+      <i class="ti ti-bike" aria-hidden="true"></i>
       <h3>Volunteer delivery</h3>
       <p>No vehicle? An NGO can request a volunteer to handle the last mile.</p>
     </div>
-    <div class="feature">
-      <span class="feature-icon">🧾</span>
+    <div class="hx-feat">
+      <i class="ti ti-receipt" aria-hidden="true"></i>
       <h3>Automatic receipts</h3>
       <p>Every claim generates a receipt, useful for records and reporting.</p>
     </div>
-    <div class="feature">
-      <span class="feature-icon">🌙</span>
-      <h3>Light &amp; dark themes</h3>
+    <div class="hx-feat">
+      <i class="ti ti-moon-stars" aria-hidden="true"></i>
+      <h3>Light and dark themes</h3>
       <p>Comfortable to use at any hour, on any screen.</p>
     </div>
   </div>
